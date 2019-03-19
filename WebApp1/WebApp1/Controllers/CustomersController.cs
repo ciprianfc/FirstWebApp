@@ -12,10 +12,8 @@ namespace WebApp1.Controllers
     {
         // GET: Customers
         public ActionResult Customer(Customer customer)
-        {
-            Customer cust = customer;
-          
-            return View(cust);
+        {         
+            return View(customer);
         }
 
         public ActionResult AllCustomers()
