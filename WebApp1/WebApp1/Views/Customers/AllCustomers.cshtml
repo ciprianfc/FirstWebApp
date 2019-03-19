@@ -1,0 +1,24 @@
+﻿@model WebApp1.ViewModels.AllCustomersViewModel
+
+@{
+    ViewBag.Title = "AllCustomers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AllCustomers</h2>
+
+@if (Model.Customers.Count == 0)
+{
+    <p>No customers defined</p>
+}
+else
+{
+    <ul>
+        @foreach (var customer in Model.Customers)
+        {
+            <li><a href="@Url.Action("Customer","Customers",customer)"> @customer.Name</li>
+            @*<li>@customer.Name</li>*@
+        }
+    </ul>
+}
+
