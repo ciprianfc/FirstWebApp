@@ -1,0 +1,40 @@
+﻿@model IEnumerable<WebApp1.Models.Customer>
+
+@{
+    ViewBag.Title = "Customers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Customers</h2>
+
+@if (!Model.Any())
+{
+    <p>No customers defined</p>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Customer</th>
+                <th>Membership Type</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var customer in Model)
+            {
+                <tr>
+                    @*<td><a href="@Url.Action("Customer","Customers",new {id = customer.Id})"> @customer.Name</td>*@
+                    <td>@Html.ActionLink(customer.Name, "Customer", "Customers", new { id = customer.Id }, null)</td>
+                    <td>@customer.MembershipType.Name</td>
+
+                </tr>
+
+                @*<li>@customer.Name</li>*@
+            }
+        </tbody>
+    </table>
+
+}
+

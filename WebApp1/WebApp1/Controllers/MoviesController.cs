@@ -10,23 +10,14 @@ namespace WebApp1.Controllers
 {
     public class MoviesController : Controller
     {
+        private ApplicationDbContext _context;
+
         // GET: Movies
         public ActionResult Random()
         {
-            var movie = new Movie() { Name = "Shrek" };
-            var customers = new List<Customer>
-            {
-                new Customer(){Name = "Ciprian"},
-                new Customer(){Name = "Florin"}
-            };
+            var movies = _context.Movies.ToList();
 
-            var viewModel = new RandomMovieViewModel
-            {
-                Customers = customers,
-                Movie = movie
-            };
-
-            return View(viewModel);
+            return View(movies);
         }
 
         public ActionResult Edit(int id)
@@ -40,6 +31,11 @@ namespace WebApp1.Controllers
             if (string.IsNullOrWhiteSpace(sortBy)) sortBy = "Name";
 
             return Content(string.Format("pageIndex={0}&sortBy={1}", pageIndex, sortBy));
+        }
+
+        public ActionResult Movies(int id)
+        {
+            return View();
         }
 
         [Route("movies/released/{year}/{month:regex(\\d{2}):range(1,12)}")]
