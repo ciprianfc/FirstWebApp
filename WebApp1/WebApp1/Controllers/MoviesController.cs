@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,10 +13,20 @@ namespace WebApp1.Controllers
     {
         private ApplicationDbContext _context;
 
+        public MoviesController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+
         // GET: Movies
         public ActionResult Random()
         {
-            var movies = _context.Movies.ToList();
+            var movies = _context.Movies.Include(c=>c.Genre).ToList();
 
             return View(movies);
         }
@@ -33,9 +44,10 @@ namespace WebApp1.Controllers
             return Content(string.Format("pageIndex={0}&sortBy={1}", pageIndex, sortBy));
         }
 
-        public ActionResult Movies(int id)
+        public ActionResult Movie(int id)
         {
-            return View();
+            var movie = _context.Movies.Include(c=>c.Genre).SingleOrDefault(c => c.Id == id);
+            return View(movie);
         }
 
         [Route("movies/released/{year}/{month:regex(\\d{2}):range(1,12)}")]

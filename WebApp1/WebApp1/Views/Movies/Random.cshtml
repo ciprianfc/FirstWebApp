@@ -1,27 +1,47 @@
-﻿@model WebApp1.ViewModels.RandomMovieViewModel
+﻿@model IEnumerable<WebApp1.Models.Movie>
 @{
-    ViewBag.Title = "Random";
+    ViewBag.Title = "Movies";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @{
-    var className = Model.Customers.Count > 0 ? "popular" : null;
+    var className = !Model.Any() ? "popular" : null;
 }
 
-<h2 class="@className">@Model.Movie.Name</h2>
+<h2 class="@className">Movies</h2>
 
-@if (Model.Customers.Count == 0)
+@if (!Model.Any())
 {
-    <p>No one has rented @Model.Movie.Name before</p>
+    <p>No movies preset</p>
 }
 else
 {
-    <ul>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Movie</th>
+                <th>Genre</th>
+            </tr>
+        </thead>
+        <tbody>
 
-        @foreach (var customer in Model.Customers)
-        {
-            <li>@customer.Name</li>
-        }
-    </ul>
+            @foreach (var movie in Model)
+            {
+                <tr>
+                    @*<td>@movie.Name</td>*@
+                    <td>@Html.ActionLink(movie.Name, "Movie", "Movies", new { id = movie.Id }, null)</td>
+                    <td>@movie.Genre.Name</td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+    @*<ul>
+
+            @foreach (var movie in Model)
+            {
+                <li>@movie.Name</li>
+            }
+        </ul>*@
 }
 
