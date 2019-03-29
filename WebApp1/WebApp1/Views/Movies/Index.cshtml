@@ -8,6 +8,8 @@
     var className = !Model.Any() ? "popular" : null;
 }
 
+@Html.ActionLink("New movie","New","Movies", new { @class = "btn btn-primary" })
+
 <h2 class="@className">Movies</h2>
 
 @if (!Model.Any())
@@ -29,7 +31,7 @@ else
             {
                 <tr>
                     @*<td>@movie.Name</td>*@
-                    <td>@Html.ActionLink(movie.Name, "Movie", "Movies", new { id = movie.Id }, null)</td>
+                    <td>@Html.ActionLink(movie.Name, "Edit", "Movies", new { id = movie.Id }, null)</td>
                     <td>@movie.Genre.Name</td>
                 </tr>
             }
