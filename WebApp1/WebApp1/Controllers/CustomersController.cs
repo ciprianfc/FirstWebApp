@@ -39,5 +39,26 @@ namespace WebApp1.Controllers
     
             return View(customers);
         }
+
+        public ActionResult New()
+        {
+            var membershipTypes = _context.MembershipTypes.ToList();
+            var viewModel = new NewCustomerViewModel
+            {
+                MembershipTypes = membershipTypes
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Create(Customer customer) //model binding
+        {
+            _context.Customers.Add(customer);
+            _context.SaveChanges();
+
+            //return View();
+            return RedirectToAction("Index", "Customers");
+        }
     }
 }

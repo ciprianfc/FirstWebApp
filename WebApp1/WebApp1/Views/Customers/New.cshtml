@@ -1,0 +1,42 @@
+﻿@model WebApp1.ViewModels.NewCustomerViewModel
+
+@{
+    /**/
+
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New Customer</h2>
+
+@using (Html.BeginForm("Create", "Customers"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.Name)
+        @Html.TextBoxFor(m => m.Customer.Name, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.BirthDate)
+        <label>Date of Birth</label> @*other way to dislay label*@
+        @Html.TextBoxFor(m => m.Customer.BirthDate, new { @class = "form-control" })
+    </div>
+
+    @*<div class="form-group">
+            @Html.LabelFor(m => m.IsSubscribedToNewsletter)
+            @Html.CheckBoxFor(m => m.IsSubscribedToNewsletter, new { @class = "form-control" })
+        </div>*@
+
+    <div class="checbox">
+        <label>
+            @Html.CheckBoxFor(m => m.Customer.IsSubscribedToNewsletter) Subscribed to newsletter?
+        </label>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.MembershipTypeId)
+        @Html.DropDownListFor(m => m.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "Name"), "", new { @class = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+}

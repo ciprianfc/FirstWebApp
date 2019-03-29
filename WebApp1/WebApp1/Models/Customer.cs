@@ -9,12 +9,19 @@ namespace WebApp1.Models
     public class Customer
     {
         public int Id { get; set; }
+
         [Required]
         [StringLength(255)]
         public string Name { get; set; }
+
         public bool IsSubscribedToNewsletter { get; set; }
+
         public MembershipType MembershipType { get; set; }
+
+        [Display(Name = "Date of birth")] //one way to display label
         public DateTime? BirthDate { get; set; }
+
+        [Display(Name = "Membership type")]
         public byte MembershipTypeId { get; set; }
 
     }
